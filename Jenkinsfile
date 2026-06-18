@@ -1,14 +1,26 @@
 pipeline {
 agent any
 stages {
-stage ('Clone') {
+stage ('Install dependencies') {
 steps {
-    echo 'Repository cloned '
+sh 'pip install -r requirements.txt'
 }
 }
-stage ('Run Python') {
+stage ('Tests') {
 steps {
-sh 'cat app.py'
+sh 'pytest'
+}
+}
+stages {
+stage ('Build Docker Image') {
+steps {
+sh 'docker build -t myapp .'
+}
+}
+stage ('Run Docker Container') {
+steps {
+sh 'docker run myapp'
+}
 }
 }
 }
