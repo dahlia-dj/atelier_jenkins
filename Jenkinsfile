@@ -8,7 +8,7 @@ steps {
 }
 stage ('Run Python') {
 steps {
-sh 'py app.py'
+sh 'cat app.py'
 }
 }
 }
